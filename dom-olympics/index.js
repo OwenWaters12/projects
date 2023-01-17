@@ -49,16 +49,31 @@ document.getElementById("goAway").remove();
 function changeColor(){
    var select= document.querySelector("#theme-drop-down")
    var colors = select.value
+
+   var leftMsgs = document.getElementsByClassName("leftMessage")
+   var rightMsgs = document.getElementsByClassName("rightMessage")
    if(colors === "theme-one"){
-    var blue = document.getElementsByClassName("leftMessage")
-    var brown = document.getElementsByClassName("rightMessage")
-    brown.style.backgroundColor = "burlywood"
-    blue.style.backgroundColor = "blue"}
+    //var blue = document.getElementsByClassName("leftMessage")
+
+    // console.log("changeColor themeone array:", blue)
+    //var brown = document.getElementsByClassName("rightMessage")
+    for(let i =0; i < leftMsgs.length; i++){
+        leftMsgs[i].style.backgroundColor= "blue"
+        rightMsgs[i].style.backgroundColor= "burlywood"
+    }
+    // brown.style.backgroundColor = "burlywood"
+    // blue.style.backgroundColor = "blue"
+    }
+
     if (colors === "theme-two"){
-        var black = document.getElementsByClassName("leftMessage")
-        var red = document.getElementsByClassName("rightMessage")
-        black.style.backgroundColor = "black"
-        red.style.backgroundColor = "red"
+        // var black = document.getElementsByClassName("leftMessage")
+        // var red = document.getElementsByClassName("rightMessage")
+        for(let i =0; i < leftMsgs.length; i++){
+            leftMsgs[i].style.backgroundColor= "red"
+            rightMsgs[i].style.backgroundColor= "black"
+        }
+        // black.style.backgroundColor = "black"
+        // red.style.backgroundColor = "red"
     }
 };
 
@@ -81,13 +96,26 @@ function changeColor(){
 //     }
 var addText = document.getElementById("input")
 var sendButton = document.getElementById("send")
-sendButton.addEventListener("click", sendFunc)
-var place = document.getElementById("main")
+sendButton.addEventListener("click", function(e){
+    e.preventDefault()
+    sendFunc()
+})
+var place = document.getElementById("goAway")
 
 function sendFunc(){
-    var newText = document.createElement("div")
-    var forms = addText.value
+    let newText = document.createElement("div")
+    let forms = addText.value
     newText.textContent = forms
     place.append(newText)
-
+    let newMsgs = document.getElementsByClassName("message")
+    console.log("newMsgs", newMsgs)
+    console.log(newMsgs[newMsgs.length-1])
+    newText.classList.add("message")
+    console.log(newMsgs[newMsgs.length-1].classList.contains("leftMessage"))
+    if(newMsgs[newMsgs.length-1].classList.contains("messageLeft1")){
+        console.log("left")
+        newText.classList.add("messageRight1", "rightMessage")
+    }else{
+        console.log("right")
+        newText.classList.add("messageLeft1","leftMessage")}
 }
